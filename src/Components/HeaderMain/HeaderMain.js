@@ -15,7 +15,7 @@ function HeaderMain(){
 
                 <div className="btn-newPost">
                     <Link to="/post">
-                        <button>Add new Post</button>
+                        <button>Adicionar nova Postagem</button>
                     </Link>
                 </div>
             </div>
