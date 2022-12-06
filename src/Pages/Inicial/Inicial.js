@@ -13,7 +13,7 @@ function Feed(){
     const [ posts, setPosts ] = useState([])
 
     useEffect(() => {
-        axios.get("https://api-rest-um-banco-de-dado-simples.vercel.app/remedios")
+        axios.get("https://json-server-inky-nine.vercel.app/tribal")
         .then((response) => {
             setPosts(response.data)
         })
@@ -21,6 +21,14 @@ function Feed(){
             console.log("Deu errado!")
         })
     })
+
+
+    // Função para deletar uma postagem!
+    function deletePost(id){
+        axios.delete(`https://json-server-inky-nine.vercel.app/tribal/delete/${id}`)
+
+        setPosts(posts.filter(post => post._id !== id))
+    }
 
 
     return(
@@ -34,7 +42,7 @@ function Feed(){
                         return (    
                             <div className="card" key={key}>
                                 <header>
-                                    <h2>{post.nome}</h2>
+                                    <h2>{post.title}</h2>
                                     <img src={More}></img>
                                 </header>
                                 <div className="line"></div>
@@ -49,13 +57,13 @@ function Feed(){
                                     </div>
 
                                     <div className="btn-readmore">  
-                                        <Link to="/lermais">
+                                        <Link to={{pathname: `/lermais/${post.id}` }}>
                                             <button>Ler mais</button>   
                                         </Link>                                
                                     </div>
                                         
                                     <div className="btn-delete">
-                                        <button>Deletar</button>
+                                        <button onClick={() => deletePost(post.id) }>Deletar</button>
                                     </div>
                                 </div>
                             </div>

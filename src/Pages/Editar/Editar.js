@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../Components/Header/Header";
-import { Link } from "react-router-dom";
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import axios from 'axios';
+
+import { useParams } from "react-router-dom";
 
 
 
@@ -20,11 +21,22 @@ const validacaoForms = yup.object().shape({
 
 function Edit(){
 
-    const { register, handleSubmit, formState: { errors }} = useForm({
+    const { id } = useParams()
+
+    const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(validacaoForms)
     })
 
-    const addPost = x => axios.post("https://json-server-inky-nine.vercel.app/tribal", x)
+    useEffect(() => {
+        axios.get(`https://json-server-inky-nine.vercel.app/tribal/${id}`)
+        .then((response) => {
+            reset(response.data)
+        })
+        
+    }, [])
+
+
+    const addPost = x => axios.put(`https://json-server-inky-nine.vercel.app/tribal/${id}`, x)
     .then(() => {
         console.log("Deu certo!")
     })
@@ -38,7 +50,7 @@ function Edit(){
 
             <main>
                 <div className="card-post">
-                    <h1>Criar postagem</h1>
+                    <h1>Editar Postagem</h1>
                     <div className="line-post"></div>
                     
                     <div className="card-body-post">
