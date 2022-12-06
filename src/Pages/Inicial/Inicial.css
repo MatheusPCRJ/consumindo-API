@@ -7,8 +7,10 @@ main header {
     flex-wrap: wrap;
     max-width: 500px;
 }
-
-img {
+.img-Inicial{
+    width: 400px;
+}
+.tresPontos {
     width: 20px;
     margin-left: 40px;
 

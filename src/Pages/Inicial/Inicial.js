@@ -25,7 +25,7 @@ function Feed(){
 
     // Função para deletar uma postagem!
     function deletePost(id){
-        axios.delete(`https://json-server-inky-nine.vercel.app/tribal/delete/${id}`)
+        axios.delete(`https://json-server-inky-nine.vercel.app/tribal/${id}`)
 
         setPosts(posts.filter(post => post._id !== id))
     }
@@ -37,13 +37,18 @@ function Feed(){
 
             <main>
                 <div className="cards" >
+                    
 
                     {posts.map((post, key) => {
                         return (    
                             <div className="card" key={key}>
+
+                                <img className="img-Inicial" src={`Images/${post.imagem}`}/>
+                                
+                                <p>{post.imagem}</p>
                                 <header>
                                     <h2>{post.title}</h2>
-                                    <img src={More}></img>
+                                    <img className="tresPontos" src={More}></img>
                                 </header>
                                 <div className="line"></div>
                                 <p>R${post.preco} a caixa.
