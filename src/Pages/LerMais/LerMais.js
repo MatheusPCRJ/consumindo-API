@@ -1,28 +1,119 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../Components/Header/Header";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
-function Lermais(){
-    return(
-        <div>
-            <Header />
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-            <main>
-                <div className="cards">
-                    <div className="card">
-                        <header>
-                            <h2>Curso consumindo uma Api</h2>
-                        </header>
-                        <div className="line"></div>
-                        <p>Bla bla bla Bla bla bla Bla bla bla Bla bla bla Bla bla
-                            bla Bla bla bla Bla bla blaBla bla blaBla bla blaBla bla
-                            blabla bla Bla bla bla
-                        </p>
 
-                        
-                    </div>
-                </div>
-            </main>
-        </div>
+
+
+
+function Lermais() {
+
+
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        axios.get("https://json-server-inky-nine.vercel.app/tribal/1")
+            .then((response) => {
+                setPosts(response.data)
+            })
+            .catch(() => {
+                console.log("Deu errado!")
+            })
+    })
+
+
+    return (
+
+        <main>
+
+
+            <div className="cards" >
+
+                {posts.map((post, key) => {
+                    return (
+                        <div className="card" key={key}>
+
+                            <heade>
+                                <h2>{post.title}</h2>
+                            </heade>
+                            <div className="line"></div>
+                            <p>{post.preço}</p>
+
+                        </div>
+                    )
+                })}
+
+            </div>
+
+
+        </main>
+
     )
+
+
+
+
+
+
 }
 export default Lermais
+
+
+
+
+
+
+
+
+
+
+// function Lermais() {
+
+//     const { id } = useParams()
+
+//     const { register, handleSubmit, formState: { errors }, reset } = useForm({
+//         resolver: yupResolver()
+//     })
+
+//     useEffect(() => {
+//         axios.get(`https://json-server-inky-nine.vercel.app/tribal/${id}`)
+//             .then((response) => {
+//                 reset(response.data)
+//             })
+
+//     }, [])
+
+
+//     return (
+//         <div>
+//             <Header />
+
+//             <main>
+
+
+//                 <div className="cards" >
+
+
+//                     <div className="card">
+
+//                         <heade>
+//                             <input className="labelteste" type="text" name="title" {...register("title")}></input>
+//                         </heade>
+//                         <div className="line"></div>
+//                         <p name="preço" {...register("preço")}></p>
+
+//                     </div>
+
+//                 </div>
+
+
+//             </main>
+//         </div>
+//     )
+// }
+// export default Lermais

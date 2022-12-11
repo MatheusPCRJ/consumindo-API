@@ -93,4 +93,6 @@ textarea {
 
 .error-message {
     color: rgb(240, 47, 47);
+    margin-top: 0;
+    margin-bottom: 20px;
 }

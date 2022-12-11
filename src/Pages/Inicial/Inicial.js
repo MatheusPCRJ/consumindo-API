@@ -8,51 +8,55 @@ import './Inicial.css';
 
 
 
-function Feed(){
+function Feed() {
 
-    const [ posts, setPosts ] = useState([])
+    const [posts, setPosts] = useState([])
 
     useEffect(() => {
         axios.get("https://json-server-inky-nine.vercel.app/tribal")
-        .then((response) => {
-            setPosts(response.data)
-        })
-        .catch(() => {
-            console.log("Deu errado!")
-        })
+            .then((response) => {
+                setPosts(response.data)
+            })
+            .catch(() => {
+                console.log("Deu errado!")
+            })
     })
 
 
     // Função para deletar uma postagem!
-    function deletePost(id){
+    function deletePost(id) {
         axios.delete(`https://json-server-inky-nine.vercel.app/tribal/${id}`)
 
-        setPosts(posts.filter(post => post._id !== id))
+        setPosts(posts.filter(post => post.id !== id))
     }
 
 
-    return(
+    return (
         <div>
             <HeaderMain />
 
             <main>
                 <div className="cards" >
-                    
+
 
                     {posts.map((post, key) => {
-                        return (    
+                        return (
                             <div className="card" key={key}>
 
-                                <img className="img-Inicial" src={`Images/${post.imagem}`}/>
-                                
-                                <p>{post.imagem}</p>
-                                <header>
-                                    <h2>{post.title}</h2>
+                                <header className="tresPontosHeader">  
                                     <img className="tresPontos" src={More}></img>
                                 </header>
+
+                                <div className="tituloAndImg">
+                                    <h2>{post.title}</h2> 
+                                    {/* <img className="img-Inicial" src={`Images/${post.imagem}`} /> */}
+                                    <img className="img-Inicial" src={post.imagem}/>
+                                </div>
+
+
                                 <div className="line"></div>
-                                <p>R${post.preco} a caixa.
-                                </p>
+
+                                <p>R${post.preço}</p>
 
                                 <div className="btns">
                                     <div className="btn-edit">
@@ -61,20 +65,20 @@ function Feed(){
                                         </Link>
                                     </div>
 
-                                    <div className="btn-readmore">  
-                                        <Link to={{pathname: `/lermais/${post.id}` }}>
-                                            <button>Ler mais</button>   
-                                        </Link>                                
+                                    <div className="btn-readmore">
+                                        <Link to={{ pathname: `/lermais/${post.id}` }}>
+                                            <button>Ler mais</button>
+                                        </Link>
                                     </div>
-                                        
+
                                     <div className="btn-delete">
-                                        <button onClick={() => deletePost(post.id) }>Deletar</button>
+                                        <button onClick={() => deletePost(post.id)}>Deletar</button>
                                     </div>
                                 </div>
                             </div>
                         )
                     })}
-                    
+
                 </div>
             </main>
         </div>
