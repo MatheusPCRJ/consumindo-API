@@ -41,3 +41,6 @@ header {
     transition: 0.2s;
     background-color: #538af0;
 }
+.linkLogo{
+    text-decoration: none;
+}

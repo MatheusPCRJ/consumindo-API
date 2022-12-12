@@ -14,8 +14,10 @@ const validacaoForms = yup.object().shape({
     title: yup.string().required("O título é obrigatório!").max(40, "O título precisa ter menos de 40 caracteres!"),
 
     imagem: yup.string().required("A imagem é obrigatório!"),
+
+    descrição: yup.string().required("O descrição é obrigatória!"),
     
-    preço: yup.string().required("O preço é obrigatório!").min(6, "O preço precisa ter menos de 6 caracteres!")
+    preço: yup.string().required("O preço é obrigatório!").min(4, "O preço precisa ter menos de 5 caracteres!")
 })
 
 
@@ -36,7 +38,7 @@ function Edit(){
     }, [])
 
 
-    const addPost = x => axios.put(`https://json-server-inky-nine.vercel.app/tribal/${id}`)
+    const addPost = x => axios.put(`https://json-server-inky-nine.vercel.app/tribal/${id}`, x)
     .then(() => {
         console.log("Deu certo!")
     })
@@ -64,6 +66,10 @@ function Edit(){
                                 <label>Link da Imagem</label>
                                 <input type="text" name="imagem" {...register("imagem")} />
                                 <p className="error-message">{errors.imagem?.message}</p>
+
+                                <label>Descrição da Imagem</label>
+                                <textarea type="text" name="descrição" {...register("descrição")}></textarea>
+                                <p className="error-message">{errors.descrição?.message}</p>
 
                                 <label>Preço</label>
                                 <input type="text" name="preço" {...register("preço")}/>

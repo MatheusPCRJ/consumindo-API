@@ -1,5 +1,4 @@
 import React from "react";
-// import { Link } from 'react-router-dom';
 import Header from "../../Components/Header/Header";
 import { useForm } from 'react-hook-form';
 import './AddConteudo.css';
@@ -14,8 +13,10 @@ const validacaoForms = yup.object().shape({
     title: yup.string().required("O título é obrigatório!").max(40, "O título precisa ter menos de 40 caracteres!"),
 
     imagem: yup.string().required("A imagem é obrigatória!"),
+
+    descrição: yup.string().required("O descrição é obrigatória!"),
     
-    preço: yup.string().required("O preço é obrigatório!").max(10, "O preço precisa ter menos de 10 caracteres!")
+    preço: yup.string().required("O preço é obrigatório!").min(4, "O preço precisa ter menos de 5 caracteres!")
 })
 
 
@@ -54,6 +55,11 @@ function Post(){
                                 <input type="text" name="imagem" {...register("imagem")} />
                                 <p className="error-message">{errors.imagem?.message}</p>
 
+                                <label>Descrição da Imagem</label>
+                                <textarea type="text" name="descrição" {...register("descrição")}></textarea>
+                                <p className="error-message">{errors.descrição?.message}</p>
+
+                                
                                 <label>Preço</label>
                                 <input type="text" name="preço" {...register("preço")}/>
                                 <p className="error-message">{errors.preço?.message}</p>
